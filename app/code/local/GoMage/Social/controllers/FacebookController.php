@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.2.0
+ * @version      Release: 1.3.0
  * @since        Class available since Release 1.0.0
  */ 
 
@@ -58,9 +58,8 @@ class GoMage_Social_FacebookController extends GoMage_Social_Controller_Social {
         		 $this->getSession()->loginById($customer->getId()); 
         	} else {
 	        	try {
-					$profile = $facebook->api('/me');
-				}
-				catch (FacebookApiException $e) {
+					$profile = $facebook->api('/me?fields=email,first_name,last_name');
+				} catch (FacebookApiException $e) {
 					$this->getSession()->addError($e->__toString());
 					$profile = null;
 				}
