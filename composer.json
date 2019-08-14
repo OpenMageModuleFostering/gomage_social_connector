@@ -3,7 +3,7 @@
     "type": "magento-module",
     "license": "Single-domain-license",
     "homepage": "",
-    "description": "GoMage Social Connector allows your customers to login with the most popular social connectors: Amazon, Facebook, LinkedIn, Google and Google+!, Twitter, Tumblr and Reddit.",
+    "description": "GoMage Social Connector allows your customers to login with the most popular social connectors: Amazon, Facebook, LinkedIn, Google and Google+!, Twitter, Tumblr, Reddit, Amazon and Instagram.",
     "authors": [
     {
         "name": "GoMage",

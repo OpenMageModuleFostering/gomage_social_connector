@@ -11,8 +11,16 @@
  * @since        Class available since Release 1.2.0
  */ 
  
-class GoMage_Social_Block_Adminhtml_System_Config_RedirectUri_Google extends GoMage_Social_Block_Adminhtml_System_Config_AbstractRedirectUri {
-	public function getTypeService() {	
-		return GoMage_Social_Model_Type::getTypeService(GoMage_Social_Model_Type::GOOGLE);
-	}
+class GoMage_OAuth_Credentials extends Varien_Object 
+{	
+	public function _construct() 
+	{
+		if (!$this->getClientId()) {
+			throw new Exception('client_id is required');
+		} else if (!$this->getClientSecret()) {
+			throw new Exception('client_secret is required');
+		} else if (!$this->getRedirectUri()) {
+			throw new Exception('redirect_uri is required');
+		}
+    }
 }

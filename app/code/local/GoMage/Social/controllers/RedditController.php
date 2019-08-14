@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Social Connector Extension
  *
@@ -7,24 +8,25 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.1.0
  */
-
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Reddit' . DS . 'Client.php');
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Reddit' . DS . 'GrantType/IGrantType.php');
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Reddit' . DS . 'GrantType/AuthorizationCode.php');
 
-class GoMage_Social_RedditController extends GoMage_Social_Controller_SocialNoMail {
+class GoMage_Social_RedditController extends GoMage_Social_Controller_SocialNoMail 
+{
+	protected  $authorizeUrl	= 'https://ssl.reddit.com/api/v1/authorize';
+	protected  $accessTokenUrl	= 'https://ssl.reddit.com/api/v1/access_token';
 
- protected  $authorizeUrl	= 'https://ssl.reddit.com/api/v1/authorize';
- protected  $accessTokenUrl	= 'https://ssl.reddit.com/api/v1/access_token';
-
-    public function getSocialType() {
+    public function getSocialType() 
+	{
         return GoMage_Social_Model_Type::REDDIT;
     }
 
-    public function loginAction() {
+    public function loginAction() 
+	{		
 		$callback_url	= Mage::getUrl('gomage_social/reddit/callback', array('_secure' => true));
 		$client			= new OAuth2\Client(
 			Mage::getStoreConfig('gomage_social/reddit/id'), 
@@ -32,7 +34,7 @@ class GoMage_Social_RedditController extends GoMage_Social_Controller_SocialNoMa
 			OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC
 		);
 		
-		$authUrl = $client->getAuthenticationUrl(
+		$authUrl		= $client->getAuthenticationUrl(
 			$this->authorizeUrl, 
 			$callback_url, 
 			array(
@@ -41,17 +43,32 @@ class GoMage_Social_RedditController extends GoMage_Social_Controller_SocialNoMa
 			)
 		);
 		
+		$url_backward	=
+			($this->getRequest()->getParam('gs_url', ''))
+				? Mage::helper('core')->urlDecode($this->getRequest()->getParam('gs_url'))
+					: Mage::getBaseUrl();
+				
+		$_profile		= array(
+			'url_backward'		=> $url_backward,
+			'url_check_email'	=> Mage::getUrl('gomage_social/reddit/checkEmail', array('_secure' => Mage::helper('gomage_social/url')->isSecure($url_backward))),
+			'url_email_close'	=> Mage::getUrl('gomage_social/reddit/emailClose', array('_secure' => Mage::helper('gomage_social/url')->isSecure($url_backward))),
+			'type_id'			=> $this->getSocialType()
+		);
+		
+		Mage::getSingleton('core/session')->setGsProfile((object) $_profile);	
+		
 		return $this->_redirectUrl($authUrl);
     }
 
-    public function callbackAction() {
+    public function callbackAction() 
+	{
         $callback_url	= Mage::getUrl('gomage_social/reddit/callback', array('_secure' => true));
         $client			= new OAuth2\Client(
 			Mage::getStoreConfig('gomage_social/reddit/id'), 
 			Mage::getStoreConfig('gomage_social/reddit/secret'), 
 			OAuth2\Client::AUTH_TYPE_AUTHORIZATION_BASIC
-		);
-        $params = array(
+		);	
+        $params			= array(
 			"code"			=> $this->getRequest()->getParam('code'), 
 			"redirect_uri"	=> $callback_url
 		);
@@ -108,11 +125,9 @@ class GoMage_Social_RedditController extends GoMage_Social_Controller_SocialNoMa
 							}
 						}
 					} else {
-						$profile->url = Mage::getUrl('gomage_social/reddit/checkEmail', array('_secure' => true));
-						$profile->urlEmailClose = Mage::getUrl('gomage_social/twitter/emailClose', array('_secure' => true));
-						$profile->type_id =  GoMage_Social_Model_Type::REDDIT;
+						$_profile = array_merge((array) Mage::getSingleton('core/session')->getGsProfile(), (array) $profile);
 						
-						Mage::getSingleton('core/session')->setGsProfile($profile);
+						Mage::getSingleton('core/session')->setGsProfile((object) $_profile);
 					}
 				}
 			}

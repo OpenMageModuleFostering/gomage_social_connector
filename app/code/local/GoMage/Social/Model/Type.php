@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Social Connector Extension
  *
@@ -7,43 +8,47 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.0.0
- */ 
+ */
+class GoMage_Social_Model_Type
+{
+    const FACEBOOK  = 1;
+    const LINKEDIN  = 2;
+    const GOOGLE    = 3;
+    const TWITTER   = 4;
+    const TUMBLR    = 5;
+    const REDDIT    = 6;
+    const AMAZON    = 7;
+    const INSTAGRAM = 8;
 
-class GoMage_Social_Model_Type {
-	
-	const FACEBOOK	= 1;	
-	const LINKEDIN	= 2; 
-	const GOOGLE	= 3;
-    const TWITTER	= 4;
-    const TUMBLR	= 5;
-    const REDDIT	= 6;
-	const AMAZON	= 7;
-
-    public static function getTypeService($type) {
+    public static function getTypeService($type)
+    {
         switch ($type) {
-			case self::FACEBOOK :
+            case self::FACEBOOK :
                 return 'facebook';
-			break;
+                break;
             case self::LINKEDIN :
                 return 'linkedin';
-			break;
-			case self::GOOGLE :
+                break;
+            case self::GOOGLE :
                 return 'google';
-			break;
+                break;
             case self::TWITTER :
                 return 'twitter';
-			break;
+                break;
             case self::TUMBLR :
-				return 'tumblr';
-			break;
+                return 'tumblr';
+                break;
             case self::REDDIT :
-				return 'reddit';
-            break;
-			case self::AMAZON :
-				return 'amazon';
-            break;
+                return 'reddit';
+                break;
+            case self::AMAZON :
+                return 'amazon';
+                break;
+            case self::INSTAGRAM :
+                return 'instagram';
+                break;
         }
     }
 }

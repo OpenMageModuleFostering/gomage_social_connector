@@ -7,7 +7,7 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.0.0
  */ 
 ?>
@@ -160,60 +160,62 @@
 		//]]>
 	</script>
 <?php endif; ?>
-
-
-<?php if (Mage::getSingleton('core/session')->getGsProfile()) : ?>
-	<?php if (Mage::getSingleton('core/session')->getGsProfile()->url) : ?>
-		<script type="text/javascript">
-            var GomageSocialClass = new GomageSocialClass ;
-        </script>
-        
-        <div id="gs-popup-content" style="display:none;">
-        	<div id="gs-validate-detail">
-        		<form onsubmit="GomageSocialClass.sendEmail('<?php echo Mage::getSingleton('core/session')->getGsProfile()->url; ?>'); return false;" action="<?php echo Mage::getSingleton('core/session')->getGsProfile()->url; ?>" method="post" id="gs-form" >
-                    <ul class="form-list">
-                        <li>
-                            <label for="gs-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
-                            <div class="input-box">
-                                <input type="text" name="email" value="" id="gs-email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
-                            </div>
-                        </li>
-                        <li>
-                            <div class="actions">
-                                <button type="submit" class="button validation-passed" ><span><span><?php echo $this->__('Login') ?></span></span></button>
-                                <span style="display: none;" id="gs-please-wait" class="please-wait">
-                                    <img class="v-middle" title="<?php echo $this->__('Loading...') ?>" alt="<?php echo $this->__('Loading...') ?>" src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" />
-                                </span>
-                                <div id="gs-message" ></div>
-                            </div>
-                        </li>
-                    </ul>
-        		</form>
-        	</div>
+<?php 
+	if (
+		Mage::getSingleton('core/session')->getGsProfile() && 
+		isset(Mage::getSingleton('core/session')->getGsProfile()->id) &&
+		isset(Mage::getSingleton('core/session')->getGsProfile()->url_check_email)
+	) : 
+?>
+	<script type="text/javascript">
+        var GomageSocialClass = new GomageSocialClass ;
+    </script>
+    
+    <div id="gs-popup-content" style="display:none;">
+        <div id="gs-validate-detail">
+            <form onsubmit="GomageSocialClass.sendEmail('<?php echo Mage::getSingleton('core/session')->getGsProfile()->url_check_email; ?>'); return false;" action="<?php echo Mage::getSingleton('core/session')->getGsProfile()->url_check_email; ?>" method="post" id="gs-form" >
+                <ul class="form-list">
+                    <li>
+                        <label for="gs-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                        <div class="input-box">
+                            <input type="text" name="email" value="" id="gs-email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="actions">
+                            <button type="submit" class="button validation-passed" ><span><span><?php echo $this->__('Login') ?></span></span></button>
+                            <span style="display: none;" id="gs-please-wait" class="please-wait">
+                                <img class="v-middle" title="<?php echo $this->__('Loading...') ?>" alt="<?php echo $this->__('Loading...') ?>" src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" />
+                            </span>
+                            <div id="gs-message" ></div>
+                        </div>
+                    </li>
+                </ul>
+            </form>
         </div>
-       	  
-        <script type="text/javascript">
-			//<![CDATA[
-			win =  GomageSocialClass.createWindow("<?php echo __('Enter your email'); ?>", 300, 100);
-			win.getContent().update($('gs-popup-content').innerHTML);
-			win.showCenter();
-			
-			if (GomageSocialClass.overlay) {
-				GomageSocialClass.overlay.show();
-			}
-			
-			var gs_id_window = GomageSocialClass.id_window();
-			$(gs_id_window.replace('_close','')).className = 'dialog dialog-gs';
-			
-			$(gs_id_window).onclick = function() {
-				GomageSocialClass.unsGsProfile('<?php echo  Mage::getSingleton('core/session')->getGsProfile()->urlEmailClose; ?>');
-				window.parent.Windows.close(gs_id_window.replace('_close',''));
-			
-				if(GomageSocialClass.overlay){
-					GomageSocialClass.overlay.hide();
-				}
-			}
-			//]]>
-        </script>
-	<?php endif; ?>
+    </div>
+      
+    <script type="text/javascript">
+        //<![CDATA[
+        win =  GomageSocialClass.createWindow("<?php echo __('Enter your email'); ?>", 300, 100);
+        win.getContent().update($('gs-popup-content').innerHTML);
+        win.showCenter();
+        
+        if (GomageSocialClass.overlay) {
+            GomageSocialClass.overlay.show();
+        }
+        
+        var gs_id_window = GomageSocialClass.id_window();
+        $(gs_id_window.replace('_close','')).className = 'dialog dialog-gs';
+        
+        $(gs_id_window).onclick = function() {
+            GomageSocialClass.unsGsProfile('<?php echo  Mage::getSingleton('core/session')->getGsProfile()->url_email_close; ?>');
+            window.parent.Windows.close(gs_id_window.replace('_close',''));
+        
+            if(GomageSocialClass.overlay){
+                GomageSocialClass.overlay.hide();
+            }
+        }
+        //]]>
+    </script>
 <?php endif; ?>

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Social Connector Extension
  *
@@ -7,21 +8,22 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.1.0
  */ 
-
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Google' . DS . 'Google_Client.php');
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Google' . DS . 'contrib' . DS . 'Google_Oauth2Service.php');
 require_once (Mage::getBaseDir('lib') . DS . 'GoMage' . DS . 'Google' . DS . 'contrib' . DS . 'Google_PlusService.php');
 
-class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social {
-	
-	public function getSocialType(){
+class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social 
+{
+	public function getSocialType()
+	{
 		return GoMage_Social_Model_Type::GOOGLE;
 	}
 	
-	private function getGoogleClient(){
+	private function getGoogleClient()
+	{
 		
 		$client = new Google_Client();
 		$client->setApplicationName($this->__('Login with Google'));
@@ -30,9 +32,8 @@ class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social {
 		
 		if ($this->getRequest()->getParam('google_plus', 0) == 1) {
 			$client->setRedirectUri('postmessage');
-		}else {
-			$callback_params = array('_secure' => true);		
-			$callback_url = Mage::getUrl('gomage_social/google/callback', $callback_params);
+		} else {	
+			$callback_url = Mage::getUrl('gomage_social/google/callback', array('_secure' => true));
 			$client->setRedirectUri($callback_url);
 		}	
 		
@@ -41,35 +42,38 @@ class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social {
 		return $client;
 	}
 	
-	public function loginAction() {
-		
+	public function loginAction() 
+	{	
 		if ($this->getSession()->isLoggedIn()) {
 			return $this->_redirectUrl();
 		}
 
 		$client = $this->getGoogleClient();
 				
-		$google_oauthV2 = new Google_Oauth2Service($client);		
-		$auth_url = $client->createAuthUrl();
+		$google_oauthV2	= new Google_Oauth2Service($client);		
+		$auth_url		= $client->createAuthUrl();
 		
-		if ($this->getRequest()->getParam('gs_url', '')) {
-			Mage::getSingleton('core/session')->setData('gs_url', $this->getRequest()->getParam('gs_url'));
-		}
+		$url_backward	=
+			($this->getRequest()->getParam('gs_url', ''))
+				? Mage::helper('core')->urlDecode($this->getRequest()->getParam('gs_url'))
+					: Mage::getBaseUrl();
+				
+		$_profile	= array(
+			'url_backward' => $url_backward
+		);
+		
+		Mage::getSingleton('core/session')->setGsProfile((object) $_profile);
 
-		return $this->_redirectUrl($auth_url);
-		
+		return $this->_redirectUrl($auth_url);	
 	}
 	
-	
-	public function callbackAction(){
-		
+	public function callbackAction()
+	{
 		$code = $this->getRequest()->getParam('code');
 		
-		if ($code){
-
-			$client = $this->getGoogleClient();		
-					
-			$google_oauthV2 = new Google_Oauth2Service($client);
+		if ($code) {
+			$client			= $this->getGoogleClient();					
+			$google_oauthV2	= new Google_Oauth2Service($client);
 			
 			if ($this->getRequest()->getParam('google_plus', 0) == 1) {
 				$plus = new Google_PlusService($client);
@@ -77,25 +81,23 @@ class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social {
 			
 			$client->authenticate($code);
 			
-			if ($client->getAccessToken()){								
-				
+			if ($client->getAccessToken()) {								
 					$profile = $google_oauthV2->userinfo->get();
 					
-					if ($profile && is_array($profile) && isset($profile['id'])) {
-					
+					if ($profile && is_array($profile) && isset($profile['id'])) {		
 						$social_collection = Mage::getModel('gomage_social/entity')
 												->getCollection()
 												->addFieldToFilter('social_id', $profile['id'])
 												->addFieldToFilter('type_id', GoMage_Social_Model_Type::GOOGLE);
 									
-						if(Mage::getSingleton('customer/config_share')->isWebsiteScope()) {
+						if (Mage::getSingleton('customer/config_share')->isWebsiteScope()) {
 			            	$social_collection->addFieldToFilter('website_id', Mage::app()->getWebsite()->getId());
 			        	} 
-			        	$social = $social_collection->getFirstItem();
-			
-						$customer = null;
+						
+			        	$social		= $social_collection->getFirstItem();
+						$customer	= null;
 				
-			        	if ($social && $social->getId()){
+			        	if ($social && $social->getId()) {
 			        		$customer = Mage::getModel('customer/customer');
 				        	if (Mage::getSingleton('customer/config_share')->isWebsiteScope()) {
 								$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
@@ -103,51 +105,45 @@ class GoMage_Social_GoogleController extends GoMage_Social_Controller_Social {
 			        		$customer->load($social->getData('customer_id'));
 			        	}
 			
-			        	if ($customer && $customer->getId()){
+			        	if ($customer && $customer->getId()) {
 			        		 $this->getSession()->loginById($customer->getId()); 
-			        	} else {
-				        															
+			        	} else {													
 							$customer = Mage::getModel('customer/customer');
+							
 							if (Mage::getSingleton('customer/config_share')->isWebsiteScope()) {
 								$customer->setWebsiteId(Mage::app()->getWebsite()->getId());
 							}
+							
 							$customer->loadByEmail($profile['email']);
 							
-							if (!$customer->getId()){
+							if (!$customer->getId()) {
 								$profile['first_name'] = $profile['given_name'];
 								$profile['last_name'] = $profile['family_name'];
 								$customer = $this->createCustomer($profile);
-							}					
-							if ($customer && $customer->getId()){						
+							}	
+											
+							if ($customer && $customer->getId()) {						
 								$this->createSocial($profile['id'], $customer->getId());							
 								$this->getSession()->loginById($customer->getId());
 							}							
-							
 			        	}				        	
-				
-					}
-												
-			}else{
+					}							
+			} else {
 				$this->getSession()->addError($this->__('Could not connect to Google. Refresh the page or try again later.'));
-			}
-					
-		}else{
+			}		
+		} else {
 			$this->getSession()->addError($this->__('Could not connect to Google. Refresh the page or try again later.'));
 		}
 		
-		if ($this->getRequest()->getParam('google_plus', 0) == 1) {
-
-			$result = array();
-			$result['redirect'] = $this->_getRedirectUrl();			
-			$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-			
-		}else{		
-			
-			return $this->_redirectUrl();
-			
-		}
+		$url_backward = Mage::getSingleton('core/session')->getGsProfile()->url_backward;	
+		$this->_clear();
 		
-	}
-	
-	
+		if ($this->getRequest()->getParam('google_plus', 0) == 1) {
+			$result = array();
+			$result['redirect'] = $url_backward;			
+			$this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
+		} else {		
+			return $this->_redirectUrl($url_backward);
+		}
+	}	
 }

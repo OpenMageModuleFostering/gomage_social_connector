@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Social Connector Extension
  *
@@ -7,13 +8,13 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.1.0
  */ 
-
-abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Controller_Social {
-
-	protected function createCustomer($profile) {
+abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Controller_Social 
+{
+	protected function createCustomer($profile) 
+	{
 		$customer = Mage::getModel('customer/customer');
 		$password =  $customer->generatePassword(8);
 
@@ -37,13 +38,13 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
         }
 
         $customer->save();
-
 		$customer->sendNewAccountEmail(
 			'confirmation',
 			Mage::getSingleton('core/session')->getBeforeAuthUrl(),
 			Mage::app()->getStore()
 				->getId()
 		);
+		
         Mage::getSingleton('core/session')->addSuccess(
 			$this->__(
 				'Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.', 
@@ -54,7 +55,8 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
         return $customer;    
 	}
 
-    public function checkEmailAction() { 
+    public function checkEmailAction() 
+	{ 
         $message  = array();
         $message['redirect'] = null;
 		
@@ -65,9 +67,7 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
 			
             if ($profile = Mage::getSingleton('core/session')->getGsProfile()) {
 				if ($customer->getId()) {		
-					$message['redirect'] =  Mage::getUrl('customer/account/login',array('_secure'=>true));
-					$profile->url = null;
-					Mage::getSingleton('core/session')->setGsProfile($profile);
+					$message['redirect'] =  Mage::getUrl('customer/account/login', array('_secure' => true));
 					Mage::getSingleton('core/session')->addNotice('There is already an account with this email address. We suggest using the standard login form.');
 				} else {
 					$social_collection = Mage::getModel('gomage_social/entity')
@@ -126,11 +126,11 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
 							if (!$customer->getConfirmation()) {
 								$this->getSession()->loginById($customer->getId());
 							}
-						}
-						
-						Mage::getSingleton('core/session')->unsGsProfile();
-					}
+						}	
+					}		
 				}
+				
+				$this->_clear();
 			}
 		}
 		
@@ -141,7 +141,8 @@ abstract class GoMage_Social_Controller_SocialNoMail extends GoMage_Social_Contr
 		return $this->getResponse()->setBody(Zend_Json::encode($message));
 	}
 
-	public function emailCloseAction() {
-		Mage::getSingleton('core/session')->unsGsProfile();
+	public function emailCloseAction() 
+	{
+		$this->_clear();
 	}
 }

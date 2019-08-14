@@ -1,4 +1,5 @@
 <?php
+
 /**
  * GoMage Social Connector Extension
  *
@@ -7,19 +8,20 @@
  * @author       GoMage
  * @license      http://www.gomage.com/license-agreement/  Single domain license
  * @terms of use http://www.gomage.com/terms-of-use
- * @version      Release: 1.3.0
+ * @version      Release: 1.4.0
  * @since        Class available since Release 1.0.0
  */ 
-
-abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Front_Action {
-		
+abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Front_Action 
+{	
 	abstract function getSocialType();
 	
-	protected function getSession() {
+	protected function getSession() 
+	{
 		return Mage::getSingleton('customer/session');
 	}
 	
-	protected function createSocial($social_id, $customer_id) {
+	protected function createSocial($social_id, $customer_id) 
+	{
 		return Mage::getModel('gomage_social/entity')
 			->setData('social_id', $social_id)
 			->setData('type_id', $this->getSocialType())
@@ -28,12 +30,13 @@ abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Fron
 			->save();
 	}
 	
-	protected function createCustomer($profile) {
+	protected function createCustomer($profile) 
+	{
 		$customer = Mage::getModel('customer/customer');
 		$password =  $customer->generatePassword(8); 
 		
 		if (is_array($profile)) {
-			$profile = (object)$profile;
+			$profile = (object) $profile;
 		}
 		
         $customer->setData('firstname', $profile->first_name)
@@ -58,18 +61,14 @@ abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Fron
         return $customer;      
 	}
 
-	protected function _getRedirectUrl($url = '') {
+	protected function _getRedirectUrl($url = '') 
+	{
 		if (!$url) {
     		$url = $this->getRequest()->getParam('gs_url', '');
     		
-    		if (!$url && Mage::getSingleton('core/session')->getData('gs_url')) {
-    			$url = Mage::getSingleton('core/session')->getData('gs_url');
-    			Mage::getSingleton('core/session')->unsetData('gs_url');	
-    		}
-    		
-    		if ($url) {
-    			$url = Mage::helper('core')->urlDecode($url);
-    		}     		
+    		if (!$url && Mage::getSingleton('core/session')->getGsProfile()) {
+    			$url = Mage::getSingleton('core/session')->getGsProfile()->url_backward;	
+    		}	
     	}
 		
     	if (!$url) {
@@ -79,7 +78,13 @@ abstract class GoMage_Social_Controller_Social extends Mage_Core_Controller_Fron
     	return $url;
 	}
 	
-	protected function _redirectUrl($url = '') {
+	protected function _redirectUrl($url = '') 
+	{
 		return parent::_redirectUrl($this->_getRedirectUrl($url));
+    }
+	
+	protected function _clear() 
+	{
+		Mage::getSingleton('core/session')->unsGsProfile();
     }
 }

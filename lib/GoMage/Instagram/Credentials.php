@@ -11,8 +11,7 @@
  * @since        Class available since Release 1.2.0
  */ 
  
-class GoMage_Social_Block_Adminhtml_System_Config_RedirectUri_Google extends GoMage_Social_Block_Adminhtml_System_Config_AbstractRedirectUri {
-	public function getTypeService() {	
-		return GoMage_Social_Model_Type::getTypeService(GoMage_Social_Model_Type::GOOGLE);
-	}
+class GoMage_Instagram_Credentials extends GoMage_OAuth_Credentials
+{
+	
 }
