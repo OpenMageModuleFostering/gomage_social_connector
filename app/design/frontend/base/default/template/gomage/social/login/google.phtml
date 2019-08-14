@@ -1,0 +1,36 @@
+<?php
+/**
+ * GoMage Social Connector Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2015 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.2.0
+ * @since        Class available since Release 1.2.0
+ */
+?>
+
+<li <?php if ($this->is_last): ?>class="last"<?php endif; ?>>
+    <?php if ($this->getLoginType('google') == GoMage_Social_Model_Adminhtml_System_Config_Source_Login_Type::BUTTON) : ?>
+        <button class="g-signin"
+            data-scope="https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/userinfo.email"
+            data-requestvisibleactions="http://schemas.google.com/AddActivity"
+            data-clientId="<?php echo Mage::getStoreConfig('gomage_social/google/id') ?>"
+            data-accesstype="offline"
+            data-callback="gomageSocialGSigninCallback"
+            data-approvalprompt="force"
+            data-cookiepolicy="single_host_origin"
+            data-height="short">
+        </button>
+    <?php else: ?>
+        <a href="<?php echo $this->getUrl('gomage_social/google/login', array('_secure' => true, 'gs_url' => Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl())));  ?>" title="<?php echo $this->getText('google') ?>">
+            <?php if (($image = $this->getImage('google')) && ($this->getLoginType('google') == GoMage_Social_Model_Adminhtml_System_Config_Source_Login_Type::IMAGE)) : ?>
+                <img src="<?php echo $image ?>" alt="<?php echo $this->getText('google') ?>" />
+            <?php else : ?>
+                <?php echo $this->getText('google') ?>
+            <?php endif; ?>
+        </a>
+    <?php endif; ?>
+</li>              

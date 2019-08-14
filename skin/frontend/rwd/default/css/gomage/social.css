@@ -1,0 +1,162 @@
+/**
+ * GoMage Social Connector Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.1.0
+ * @since        Class available since Release 1.0.0
+ */ 
+ 
+/* Header Fast Links
+-------------------------------------------------- */
+.header .links li{
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  }
+.header .gs-list{
+  padding: 0 !important;
+  }
+  
+/* Fixed height for Google + */
+.gs-login [id^="___signin"]{
+  height: 20px !important;
+  vertical-align: middle !important;
+  }
+.header .gs-list.last,
+.header .gs-list .last{
+  background: none !important;
+  padding-right: 0 !important;
+  }
+  
+/* Lightcheckout
+-------------------------------------------------- */
+html .glc-login-and-paypal #gcheckout-login-link,
+html .glc-login-and-paypal .gs-login-checkout,
+html .glc-rtl.glc-login-and-paypal #gcheckout-login-link,
+html .glc-rtl.glc-login-and-paypal .gs-login-checkout{
+  float: none;
+  display: inline-block;
+  vertical-align: middle;
+  }
+  html .glc-login-and-paypal .gs-login-checkout *{
+    vertical-align: middle;
+    }
+.glc-login-and-paypal .gs-login-ee.gs-login-checkout{
+  padding: 0;
+  text-align: left;
+  }
+ 
+/* Login Page
+-------------------------------------------------- */
+.gs-login-login,
+.gs-login-checkout{
+  text-align: right;
+  padding: 5px 0;
+  }
+  .gs-login-login li{
+    padding: 0 2px;
+    }
+  .gs-login li{
+    display: inline-block;
+    vertical-align: middle;
+    }
+  .gs-login img{
+    vertical-align: middle;
+  }
+  .gs-login-fast_links li{
+    display: block;
+    text-align: center;
+    }
+  .gs-login-fast_links img{
+    display: inline-block;
+    }
+  
+/* EE
+-------------------------------------------------- */
+.gs-login-ee.gs-login-login{
+  text-align: left;
+  clear: both;
+  }
+.gs-login-ee.gs-login-checkout{
+  padding: 5px 20px;
+  text-align: left;
+  }
+.gs-popup-content {
+
+    position: absolute;
+    margin-left: 60%;
+    margin-top: 10%;
+    background: #ffffff;
+
+    text-align: center;
+    z-index: 999;
+
+}
+#gsc_message{
+    color: red;
+}
+
+#gomage-social-overlay,
+.overlay_gomage_cp{
+    background:#000;
+    z-index:2000 !important;
+    filter:alpha(opacity=60);
+    -webkit-opacity:.6;
+    -moz-opacity:.6;
+    opacity:.6;
+}
+
+/* Popup
+-------------------------------------------------- */
+#gs-validate-detail{
+  padding: 10px 6px 0;
+  }
+  #gs-validate-detail .form-list label{
+    width: auto;
+    padding: 0;
+    float: left;
+    position: relative;
+    }
+    #gs-validate-detail .form-list label em{
+      position: absolute;
+      right: -8px;
+      margin: 0;
+      }
+  #gs-validate-detail .input-box,
+  #gs-validate-detail .form-list input.input-text{
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing   : border-box;
+    box-sizing        : border-box;
+    }
+  #gs-validate-detail .actions{
+    overflow: hidden;
+    }
+    #gs-validate-detail .actions button.button{
+      float: right;
+      }
+  #gs-please-wait{
+    float: left;
+    position: static;
+    margin: 0;
+    background: none;
+    border: 0;
+    padding: 0;
+    }
+#gs-message{
+  color: red;
+  clear: both;
+  margin: 5px 0;
+  }
+.dialog-gs .magento_w,
+.dialog-gs .magento_e{
+  width: 0;
+  }
+.dialog-gs.dialog,
+.dialog-gs.magento_content{
+  height: auto !important;
+  }

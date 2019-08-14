@@ -1,0 +1,27 @@
+<?php
+/**
+ * GoMage Social Connector Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2015 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.2.0
+ * @since        Class available since Release 1.2.0
+ */
+?>
+
+<li <?php if ($this->is_last): ?>class="last"<?php endif; ?>>
+	<?php if ($this->getLoginType('facebook') == GoMage_Social_Model_Adminhtml_System_Config_Source_Login_Type::BUTTON) : ?>
+        <fb:login-button scope="email" onlogin="gomageSocialFBCheckLogin()" v="2"></fb:login-button>
+	<?php else: ?>
+        <a href="#" onclick="gomageSocialFBLogin();return false;" title="<?php echo $this->getText('facebook') ?>">
+            <?php if (($image = $this->getImage('facebook')) && ($this->getLoginType('facebook') == GoMage_Social_Model_Adminhtml_System_Config_Source_Login_Type::IMAGE)): ?>
+                <img src="<?php echo $image ?>" alt="<?php echo $this->getText('facebook') ?>" />
+            <?php else: ?>
+                <?php echo $this->getText('facebook') ?>
+            <?php endif; ?>
+        </a>
+    <?php endif; ?>
+</li>

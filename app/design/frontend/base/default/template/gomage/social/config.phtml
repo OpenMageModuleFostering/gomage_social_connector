@@ -1,0 +1,219 @@
+<?php 
+/**
+ * GoMage Social Connector Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2015 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.2.0
+ * @since        Class available since Release 1.0.0
+ */ 
+?>
+<?php if (Mage::helper('gomage_social')->isActive()) : ?>
+	<script type="text/javascript">
+		//<![CDATA[
+		function gomageSocialPrepareFastLinks() {
+			try {	
+				var wrapper = document.getElementById('___signin_0');	
+				
+				if (wrapper) {
+					wrapper.style.height	= '25px';
+					wrapper.style.width		= '82px';
+					
+					var button = wrapper.getElementsByTagName('button')[0];
+					
+					if (button) {
+						button.style.height	= '25px';
+						button.style.width	= '82px';
+					}
+					
+					var iframe = wrapper.getElementsByTagName('iframe')[0];
+					
+					if (iframe) {
+						iframe.style.height	= '25px';
+						iframe.style.width	= '82px';
+					}
+				}
+										
+				if ($$('.gs-login-fast_links').length > 0) {
+					var fast_links = $$('.gs-login-fast_links')[0];
+					
+					if (fast_links.up('ul.links') != 'undefined') {
+						if (fast_links.up('ul.links').getHeight() > 30) {
+							fast_links.up('li').previous().addClassName('last');
+						}
+					}
+					
+				}
+			} catch(e){
+				
+			}
+		}
+		
+		document.observe("dom:loaded", function () {			
+			setTimeout(gomageSocialPrepareFastLinks, 3000);										
+		});
+		//]]>
+	</script>
+<?php else: ?>
+	<script type="text/javascript">
+		//<![CDATA[
+		function lastLinks() {
+			var gs_li = $$('div.header ul.links li');
+			if (gs_li) {
+				var gs_last_li = gs_li[gs_li.length - 1];
+				gs_last_li.className = 'last';
+			}
+		}
+		
+		document.observe("dom:loaded", lastLinks);
+		//]]>
+    </script>
+<?php endif; ?>
+<?php if (Mage::helper('gomage_social')->isFBActive() && Mage::getStoreConfig('gomage_social/general/enable')) : ?>
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+		//<![CDATA[ 
+		function gomageSocialFBLogin() {
+			FB.login(function (response) {
+				gomageSocialFBLoginResponse(response);
+			}, {scope:'email'});
+		}
+		
+		function gomageSocialFBCheckLogin() {
+			FB.getLoginStatus(function (response) {
+				gomageSocialFBLoginResponse(response);	
+			});  	
+		}    	
+		
+		function gomageSocialFBLoginResponse(response) {
+			if (response.status == 'connected') {		          
+				setLocation('<?php echo $this->getUrl('gomage_social/facebook/login', array('_secure' => true, 'gs_url' => Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl()))); ?>'); 
+			} else {	   	        	       	
+				window.location.reload();
+			}
+		}
+		
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId: '<?php echo Mage::getStoreConfig('gomage_social/facebook/id') ?>',
+				status: false,  
+				cookie: true,
+				xfbml: true,
+				oauth: true
+			});
+			
+			FB.Event.subscribe('auth.login', function (response) {
+				gomageSocialFBCheckLogin();
+			});					  
+		};	
+		
+		(function (d) {
+			var js, 
+				id = 'facebook-jssdk', 
+				ref = d.getElementsByTagName('script')[0];
+			
+			if (d.getElementById(id)) { 
+				return; 
+			}
+			
+			js = d.createElement('script'); js.id = id; js.async = true;
+			js.src = "//connect.facebook.net/<?php echo Mage::app()->getLocale()->getLocaleCode() ?>/all.js";
+			ref.parentNode.insertBefore(js, ref);	    	    	    	    
+		}(document));
+		//]]>
+	</script>
+<?php endif; ?>
+<?php if (Mage::helper('gomage_social')->isGActive() && Mage::getStoreConfig('gomage_social/general/enable')) : ?>
+ 	<script type="text/javascript">
+		//<![CDATA[
+	 	function gomageSocialGSigninCallback(authResult){
+		      if (authResult['code']) {
+			      var params = {code: authResult['code'], google_plus: 1};
+		    	  var request = new Ajax.Request('<?php echo $this->getUrl('gomage_social/google/callback', array('_secure' => true, 'gs_url' => Mage::helper('core')->urlEncode(Mage::helper('core/url')->getCurrentUrl()))); ?>',
+		    	  {
+				    method: 'post',
+				    parameters: params,
+				    onSuccess: function(transport){
+				    	var response = eval('('+(transport.responseText || false)+')');
+	    			    if (response.redirect){
+	    			    	setLocation(response.redirect);
+	        			}else{
+				    		window.location.reload();
+	        			}
+				    }
+		    	  });
+		      }
+	  	}
+
+		(function() {
+			 var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+			 po.src = 'https://apis.google.com/js/client:plusone.js';
+			 var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+			 window.___gcfg = {
+				  lang: '<?php echo Mage::app()->getLocale()->getLocaleCode() ?>',
+				  parsetags: 'onload'
+			 }
+		})();
+		//]]>
+	</script>
+<?php endif; ?>
+
+
+<?php if (Mage::getSingleton('core/session')->getGsProfile()) : ?>
+	<?php if (Mage::getSingleton('core/session')->getGsProfile()->url) : ?>
+		<script type="text/javascript">
+            var GomageSocialClass = new GomageSocialClass ;
+        </script>
+        
+        <div id="gs-popup-content" style="display:none;">
+        	<div id="gs-validate-detail">
+        		<form onsubmit="GomageSocialClass.sendEmail('<?php echo Mage::getSingleton('core/session')->getGsProfile()->url; ?>'); return false;" action="<?php echo Mage::getSingleton('core/session')->getGsProfile()->url; ?>" method="post" id="gs-form" >
+                    <ul class="form-list">
+                        <li>
+                            <label for="gs-email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
+                            <div class="input-box">
+                                <input type="text" name="email" value="" id="gs-email" class="input-text required-entry validate-email" title="<?php echo $this->__('Email Address') ?>" />
+                            </div>
+                        </li>
+                        <li>
+                            <div class="actions">
+                                <button type="submit" class="button validation-passed" ><span><span><?php echo $this->__('Login') ?></span></span></button>
+                                <span style="display: none;" id="gs-please-wait" class="please-wait">
+                                    <img class="v-middle" title="<?php echo $this->__('Loading...') ?>" alt="<?php echo $this->__('Loading...') ?>" src="<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif') ?>" />
+                                </span>
+                                <div id="gs-message" ></div>
+                            </div>
+                        </li>
+                    </ul>
+        		</form>
+        	</div>
+        </div>
+       	  
+        <script type="text/javascript">
+			//<![CDATA[
+			win =  GomageSocialClass.createWindow("<?php echo __('Enter your email'); ?>", 300, 100);
+			win.getContent().update($('gs-popup-content').innerHTML);
+			win.showCenter();
+			
+			if (GomageSocialClass.overlay) {
+				GomageSocialClass.overlay.show();
+			}
+			
+			var gs_id_window = GomageSocialClass.id_window();
+			$(gs_id_window.replace('_close','')).className = 'dialog dialog-gs';
+			
+			$(gs_id_window).onclick = function() {
+				GomageSocialClass.unsGsProfile('<?php echo  Mage::getSingleton('core/session')->getGsProfile()->urlEmailClose; ?>');
+				window.parent.Windows.close(gs_id_window.replace('_close',''));
+			
+				if(GomageSocialClass.overlay){
+					GomageSocialClass.overlay.hide();
+				}
+			}
+			//]]>
+        </script>
+	<?php endif; ?>
+<?php endif; ?>

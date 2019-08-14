@@ -1,0 +1,809 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * GoMage Social Connector Extension
+ *
+ * @category     Extension
+ * @copyright    Copyright (c) 2013-2015 GoMage (http://www.gomage.com)
+ * @author       GoMage
+ * @license      http://www.gomage.com/license-agreement/  Single domain license
+ * @terms of use http://www.gomage.com/terms-of-use
+ * @version      Release: 1.2.0
+ * @since        Class available since Release 1.0.0
+ */ 
+ -->
+<config>
+	<tabs>
+		<gomage translate="label">
+			<label>GoMage</label>
+			<sort_order>200</sort_order>
+		</gomage>
+	</tabs>
+	<sections>
+		<gomage_social>
+			<label>Social Connector v.1.2</label>
+			<tab>gomage</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>250</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<information translate="label">
+					<label>GoMage Advertisment</label>
+					<frontend_type>text</frontend_type>
+					<frontend_model>gomage_social/adminhtml_system_config_fieldset_information</frontend_model>					
+					<sort_order>1</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>					
+				</information>
+				<general translate="label">
+					<label>General</label>
+					<frontend_type>text</frontend_type>
+					<frontend_model>gomage_social/adminhtml_system_config_fieldset_general</frontend_model>					
+					<sort_order>5</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable>
+							<label>Enable Social Connector</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<fast_links>
+							<label>Show in Fast Links</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_services</source_model>
+							<sort_order>15</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fast_links>
+						<login>
+							<label>Show on Login Page</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_services</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</login>
+						<checkout>
+							<label>Show On Checkout Page</label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_services</source_model>
+							<sort_order>25</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout>
+					</fields>
+				</general>				
+				<facebook translate="label">
+					<label>Facebook</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable>
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<id>
+							<label>Application API</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</id>
+						<secret>
+							<label>Secret Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secret>						
+						<fast_links_type>
+							<label>Fast Links View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_facebook</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fast_links_type>
+						<login_type>
+							<label>Login Page View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_facebook</source_model>
+							<sort_order>43</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</login_type>
+						<checkout_type>
+							<label>Checkout View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_facebook</source_model>
+							<sort_order>46</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout_type>
+						<image>
+						    <label>Login Image</label>
+						    <frontend_type>image</frontend_type>
+						    <backend_model>adminhtml/system_config_backend_image</backend_model>
+						    <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+						    <base_url type="media" scope_info="1">gomage/social</base_url> 
+						    <sort_order>50</sort_order>
+						    <show_in_default>1</show_in_default>
+						    <show_in_website>1</show_in_website>
+						    <show_in_store>1</show_in_store>						    
+						</image>
+						<text>
+							<label>Login Text</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</text>
+						<order>
+							<label>Sort Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</order>
+					</fields>
+				</facebook>				
+				<linkedin translate="label">
+					<label>LinkedIn</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable>
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_linkedin</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+						<id>
+							<label>API Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</id>
+						<secret>
+							<label>Secret Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secret>						
+						<fast_links_type>
+							<label>Fast Links View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fast_links_type>
+						<login_type>
+							<label>Login Page View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>43</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</login_type>
+						<checkout_type>
+							<label>Checkout View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>46</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout_type>
+						<image>
+						    <label>Login Image</label>
+						    <frontend_type>image</frontend_type>
+						    <backend_model>adminhtml/system_config_backend_image</backend_model>
+						    <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+						    <base_url type="media" scope_info="1">gomage/social</base_url> 
+						    <sort_order>50</sort_order>
+						    <show_in_default>1</show_in_default>
+						    <show_in_website>1</show_in_website>
+						    <show_in_store>1</show_in_store>						    
+						</image>
+						<text>
+							<label>Login Text</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</text>
+						<order>
+							<label>Sort Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</order>
+					</fields>
+				</linkedin>								
+				<google translate="label">
+					<label>Google</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable>
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_google</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+						<id>
+							<label>Client ID</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</id>
+						<secret>
+							<label>Client Secret</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secret>
+						<api>
+							<label>API Key</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</api>
+						<fast_links_type>
+							<label>Fast Links View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_google</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fast_links_type>
+						<login_type>
+							<label>Login Page View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_google</source_model>
+							<sort_order>53</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</login_type>
+						<checkout_type>
+							<label>Checkout View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type_google</source_model>
+							<sort_order>56</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout_type>
+						<image>
+						    <label>Login Image</label>
+						    <frontend_type>image</frontend_type>
+						    <backend_model>adminhtml/system_config_backend_image</backend_model>
+						    <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+						    <base_url type="media" scope_info="1">gomage/social</base_url> 
+						    <sort_order>60</sort_order>
+						    <show_in_default>1</show_in_default>
+						    <show_in_website>1</show_in_website>
+						    <show_in_store>1</show_in_store>						    
+						</image>
+						<text>
+							<label>Login Text</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</text>
+						<order>
+							<label>Sort Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</order>
+					</fields>
+				</google>
+                <twitter translate="label">
+                    <label>Twitter</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>40</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_twitter</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+                        <id>
+                            <label>Application API</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </id>
+                        <secret>
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </secret>
+                        <fast_links_type>
+                            <label>Fast Links View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fast_links_type>
+                        <login_type>
+                            <label>Login Page View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login_type>
+                        <checkout_type>
+                            <label>Checkout View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout_type>
+                        <image>
+                            <label>Login Image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+                            <base_url type="media" scope_info="1">gomage/social</base_url>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </image>
+                        <text>
+                            <label>Login Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <order>
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order>
+                    </fields>
+                </twitter>
+                <tumblr translate="label">
+                    <label>Tumblr</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_tumblr</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+                        <id>
+                            <label>Application API</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </id>
+                        <secret>
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </secret>
+                        <fast_links_type>
+                            <label>Fast Links View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fast_links_type>
+                        <login_type>
+                            <label>Login Page View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login_type>
+                        <checkout_type>
+                            <label>Checkout View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout_type>
+                        <image>
+                            <label>Login Image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+                            <base_url type="media" scope_info="1">gomage/social</base_url>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </image>
+                        <text>
+                            <label>Login Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <order>
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order>
+                    </fields>
+                </tumblr>
+                <reddit translate="label">
+                    <label>Reddit</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>60</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>Enable</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_reddit</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+                        <id>
+                            <label>Application API</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </id>
+                        <secret>
+                            <label>Secret Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </secret>
+                        <fast_links_type>
+                            <label>Fast Links View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </fast_links_type>
+                        <login_type>
+                            <label>Login Page View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>43</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </login_type>
+                        <checkout_type>
+                            <label>Checkout View</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+                            <sort_order>46</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </checkout_type>
+                        <image>
+                            <label>Login Image</label>
+                            <frontend_type>image</frontend_type>
+                            <backend_model>adminhtml/system_config_backend_image</backend_model>
+                            <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+                            <base_url type="media" scope_info="1">gomage/social</base_url>
+                            <sort_order>50</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </image>
+                        <text>
+                            <label>Login Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>60</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text>
+                        <order>
+                            <label>Sort Order</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>70</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </order>
+                    </fields>
+                </reddit>
+				<amazon translate="label">
+					<label>Amazon</label>
+					<frontend_type>text</frontend_type>
+					<sort_order>70</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enable>
+							<label>Enable</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<comment>
+								<![CDATA[Amazon uses the HTTPS protocol to access the system authorization. Please keep this in mind when registering and configuring applications.]]>
+							</comment>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</enable>
+						<redirect_uri>
+							<label>Redirect Uri</label>
+							<frontend_type>text</frontend_type>
+							<frontend_model>gomage_social/adminhtml_system_config_redirectUri_amazon</frontend_model>
+							<sort_order>11</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</redirect_uri>
+						<id>
+							<label>Client ID</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</id>
+						<secret>
+							<label>Client Secret</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</secret>						
+						<fast_links_type>
+							<label>Fast Links View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</fast_links_type>
+						<login_type>
+							<label>Login Page View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>43</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</login_type>
+						<checkout_type>
+							<label>Checkout View</label>
+							<frontend_type>select</frontend_type>
+							<source_model>gomage_social/adminhtml_system_config_source_login_type</source_model>
+							<sort_order>46</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</checkout_type>
+						<image>
+						    <label>Login Image</label>
+						    <frontend_type>image</frontend_type>
+						    <backend_model>adminhtml/system_config_backend_image</backend_model>
+						    <upload_dir config="system/filesystem/media" scope_info="1">gomage/social</upload_dir>
+						    <base_url type="media" scope_info="1">gomage/social</base_url> 
+						    <sort_order>50</sort_order>
+						    <show_in_default>1</show_in_default>
+						    <show_in_website>1</show_in_website>
+						    <show_in_store>1</show_in_store>						    
+						</image>
+						<text>
+							<label>Login Text</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>							
+						</text>
+						<order>
+							<label>Sort Order</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</order>
+					</fields>
+				</amazon>
+			</groups>
+		</gomage_social>
+        <gomage_notification>
+            <label>Notifications</label>
+            <tab>gomage</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>1100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>0</show_in_website>
+            <show_in_store>0</show_in_store>
+            <groups>
+                <notification>
+                    <label>Notifications</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+                        <enable>
+                            <label>I'd like to get advertising by GoMage</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </enable>
+                    </fields>
+                </notification>
+            </groups>
+        </gomage_notification>
+	</sections>
+</config>
