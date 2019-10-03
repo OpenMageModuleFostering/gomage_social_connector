@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 GoMage Social Connector allows your customers to login with the most popular social connectors: Amazon, Facebook, LinkedIn, Google and Google+!, Twitter, Tumblr, Reddit, Amazon and Instagram.
