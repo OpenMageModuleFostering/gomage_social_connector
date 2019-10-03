@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/gomage_social_connector",
+    "name": "OpenMageModuleFostering\/gomage_social_connector",
     "type": "magento-module",
     "license": "Single-domain-license",
     "homepage": "",
     "description": "GoMage Social Connector allows your customers to login with the most popular social connectors: Amazon, Facebook, LinkedIn, Google and Google+!, Twitter, Tumblr, Reddit, Amazon and Instagram.",
     "authors": [
-    {
-        "name": "GoMage",
-        "email": "support@gomage.com"
-    }
-],
+        {
+            "name": "GoMage",
+            "email": "support@gomage.com"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
